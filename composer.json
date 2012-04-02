@@ -1,0 +1,15 @@
+{
+    "name": "grom/suzy",
+    "description": "Web client on top of Symfony2 HTTP foundation",
+    "require": {
+        "symfony/http-foundation": "*",
+        "symfony/event-dispatcher": "*",
+        "doctrine/common": "*"
+    },
+    "authors": [
+        {
+            "name": "Jerome Tamarelle",
+            "email": "jerome@tamarelle.net"
+        }
+    ]
+}
