@@ -5,27 +5,58 @@ namespace Buzy\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * HTTP client on top of file_get_contents function.
+ * Requires "allow_url_fopen = On" in php.ini
+ *
+ * @author Jérôme Tamarelle <jerome@tamarelle.net>
+ */
 class FileGetContents implements ClientInterface
 {
     /**
+     * Client options.
+     *
+     * @var array
+     */
+    protected $options;
+
+    /**
+     * Constructor.
+     *
+     * @param array $options
+     */
+    public function __construct($options = array())
+    {
+        $this->options = array_replace(array(
+            'ignore_errors' => true,
+            'max_redirects' => 10,
+            'timeout'       => 30,
+            'verify_peer'   => false,
+        ), $options);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see ClientInterface
      *
-     * @throws RuntimeException If file_get_contents() fires an error
+     * @throws \Buzy\Client\HttpException If file_get_contents() fires an error
      */
     public function send(Request $request, Response $response)
     {
-        $context = stream_context_create($x = $this->getStreamContextArray($request));
-
         $uri = $request->getUri();
+        $context = stream_context_create($this->getStreamContextArray($request));
+
         $level = error_reporting(0);
         $content = file_get_contents($uri, 0, $context);
         error_reporting($level);
+
         if (false === $content) {
             $error = error_get_last();
-            throw new \RuntimeException($error['message']);
+            throw new HttpException($error['message']);
         }
 
-        $this->parseHeader((array) $http_response_header, $response);
+        $this->parseHeaders((array) $http_response_header, $response);
         $response->setContent($content);
     }
 
@@ -45,23 +76,19 @@ class FileGetContents implements ClientInterface
                 'header'           => strval($request->headers),
                 'content'          => $request->getContent(),
                 'protocol_version' => $request->server->get('SERVER_PROTOCOL'),
-/*
-                // values from the current client
-                'ignore_errors'    => $this->getIgnoreErrors(),
-                'max_redirects'    => $this->getMaxRedirects(),
-                'timeout'          => $this->getTimeout(),
-*/
-            ),
-/*
-            'ssl' => array(
-                'verify_peer'      => $this->getVerifyPeer(),
-            ),
 
-*/
+                // values from the current client
+                'ignore_errors'    => $this->options['ignore_errors'],
+                'max_redirects'    => $this->options['max_redirects'],
+                'timeout'          => $this->options['timeout'],
+            ),
+            'ssl' => array(
+                'verify_peer'      => $this->options['verify_peer'],
+            ),
         );
     }
 
-    protected function parseHeader(array $headers, Response $response)
+    protected function parseHeaders(array $headers, Response $response)
     {
         // @todo cookies
         foreach ($headers as $header) {
@@ -77,7 +104,7 @@ class FileGetContents implements ClientInterface
 
         if ($response->headers->has('content-type')) {
             if (preg_match('#.*;charset=(.*)#', $response->headers->get('content-type'), $matches)) {
-                $this->response->setCharset(trim($matches[1]));
+                $this->response->setCharset(strtoupper(trim($matches[1])));
             }
         }
     }

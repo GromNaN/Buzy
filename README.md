@@ -1,6 +1,17 @@
 Buzy is a an HTTP client for PHP built on top of Symfony2 components
 ====================================================================
 
+This is a work in progress project. The goal is to build an efficient and robust
+library on top of Symfony2 HttpFoundation (Request and Response).
+
+Todo:
+
+* HTTP cache listener to skip not necessary requests.
+* CURL client
+* Proxy support
+* Cookie Jar listener
+* History listener
+* Logger listener
 
 Requirements
 ------------
@@ -8,7 +19,7 @@ Requirements
 * PHP 5.3 +
 * Symfony HttpFoundation
 * Symfony Event Dispatcher
-* Curl Extension
+* Curl Extension (not yet)
 
 Usage
 -----
@@ -59,8 +70,9 @@ $response->send();
 // The response is sent back to the client
 ```
 
-Potential usages
-----------------
+Licence
+-------
 
-* Resolve external ESI into a Symfony application without any cache server like Varnish
-* 
+Original code base is extracted from Buzz library written by Kris Wallsmith.
+
+This library is shared under MIT licence. See LICENCE file.

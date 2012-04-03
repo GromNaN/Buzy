@@ -2,11 +2,9 @@
 
 namespace Buzy\Cache;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\Common\Cache\Cache;
 use Buzy\BrowserEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Doctrine\Common\Cache\Cache;
 
 /**
  * HTTP Cache listener provide standard cache features.
@@ -23,7 +21,7 @@ class CacheListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param Doctrine\Common\Cache\Cache $cache
+     * @param \Doctrine\Common\Cache\Cache $cache The cache adapter
      */
     public function __construct(Cache $cache)
     {
@@ -61,13 +59,14 @@ class CacheListener implements EventSubscriberInterface
     }
 
     /**
-     * Store the response if it is cachable.
+     * Store the response if cachable.
      *
      * @param \Buzy\BrowserEvent $event
      */
     public function onResponse(BrowserEvent $event)
     {
         $response = $event->getResponse();
+
         if ($response->isCacheable()) {
             $id = $this->generateRequestIdentifier($event->getRequest());
             $ttl = max($response->getTtl() - $response->getAge(), 0);

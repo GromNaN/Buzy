@@ -5,15 +5,26 @@ namespace Buzy;
 use Buzy\Client\ClientInterface;
 use Buzy\Client\FileGetContents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Web browser providing convenient method for HTTP requests.
+ * API is identical with Buzz by Kris Wallsmith
+ *
+ * @author Jérôme Tamarelle <jerome@tamarelle.net>
+ */
 class Browser
 {
     private $client;
     private $dispatcher;
 
+    /**
+     * Constructor.
+     *
+     * @param \Buzy\Client\ClientInterface $client HTTP Client adapter
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     */
     public function __construct(ClientInterface $client = null, EventDispatcherInterface $dispatcher = null)
     {
         $this->client = $client ?: new FileGetContents();
@@ -48,22 +59,23 @@ class Browser
     /**
      * Sends a request.
      *
-     * @param string $uri     The URL to call
+     * @param string $url     The URL to call
      * @param string $method  The request method to use
      * @param array  $headers An array of request headers
      * @param string $content The request content
      *
      * @return Response The response object
      */
-    public function call($uri, $method, $headers = array(), $content = '')
+    public function call($url, $method, $headers = array(), $content = '')
     {
-        $request = Request::create($uri, $method, array(), array(), array(), array(), $content);
+        $request = Request::create($url, $method, array(), array(), array(), array(), $content);
 
         foreach ($headers as $key => $value) {
             if (is_numeric($key)) {
                 list($key, $value) = explode(':', $value, 2);
             }
-            $request->headers->set($name, $value);
+
+            $request->headers->set($key, trim($value));
         }
 
         return $this->send($request);
@@ -81,13 +93,14 @@ class Browser
      */
     public function submit($url, array $fields, $method = 'POST', $headers = array())
     {
-        $request = Request::create($uri, $method, $fields, array(), array(), array(), null);
+        $request = Request::create($url, $method, $fields, array(), array(), array(), null);
 
         foreach ($headers as $key => $value) {
             if (is_numeric($key)) {
                 list($key, $value) = explode(':', $value, 2);
             }
-            $request->headers->set($name, $value);
+
+            $request->headers->set($key, trim($value));
         }
 
         return $this->send($request);
