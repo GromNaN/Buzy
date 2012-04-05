@@ -1,5 +1,5 @@
 {
-    "name": "grom/suzy",
+    "name": "grom/buzy",
     "description": "Web client on top of Symfony2 HTTP foundation",
     "require": {
         "symfony/http-foundation": "*",
@@ -8,7 +8,7 @@
     },
     "authors": [
         {
-            "name": "Jerome Tamarelle",
+            "name": "Jérôme Tamarelle",
             "email": "jerome@tamarelle.net"
         }
     ]
