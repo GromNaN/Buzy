@@ -29,7 +29,6 @@ Usage
 $browser = new Buzy\Browser();
 $response = $browser->get('http://www.google.com');
 
-echo $browser->getLastRequest()."\n";
 echo $response;
 ```
 
@@ -50,7 +49,7 @@ echo $response;
 Simple reverse proxy
 --------------------
 
-With this 4 lines of code, you can re-send a request and transfert response.
+With this 5 lines of code, you can re-send a request and transfert the response.
 
 ```php
 
