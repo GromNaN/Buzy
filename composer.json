@@ -6,6 +6,11 @@
         "symfony/event-dispatcher": "*",
         "doctrine/common": "*"
     },
+    "autoload": {
+        "psr-0": {
+            "Buzy": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Jérôme Tamarelle",
