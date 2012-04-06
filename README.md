@@ -55,7 +55,7 @@ With this 5 lines of code, you can re-send a request and transfert the response.
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Suzy\Browser;
+use Buzy\Browser;
 
 $request = Request::createFromGlobals();
 $request->server->set('HTTP_HOST', 'internal-server');
