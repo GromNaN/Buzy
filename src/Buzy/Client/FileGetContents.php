@@ -104,7 +104,7 @@ class FileGetContents implements ClientInterface
 
         if ($response->headers->has('content-type')) {
             if (preg_match('#.*;charset=(.*)#', $response->headers->get('content-type'), $matches)) {
-                $this->response->setCharset(strtoupper(trim($matches[1])));
+                $response->setCharset(strtoupper(trim($matches[1])));
             }
         }
     }
