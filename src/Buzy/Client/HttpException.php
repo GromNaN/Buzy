@@ -1,6 +1,6 @@
 <?php
 
-namespace Suzy\Client;
+namespace Buzy\Client;
 
 use RuntimeException;
 
