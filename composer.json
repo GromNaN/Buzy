@@ -2,9 +2,9 @@
     "name": "grom/buzy",
     "description": "Web client on top of Symfony2 HTTP foundation",
     "require": {
-        "symfony/http-foundation": "*",
-        "symfony/event-dispatcher": "*",
-        "doctrine/common": "*"
+        "symfony/http-foundation": "dev-master",
+        "symfony/event-dispatcher": "dev-master",
+        "doctrine/common": "dev-master"
     },
     "autoload": {
         "psr-0": {
