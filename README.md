@@ -1,4 +1,4 @@
-Buzy is a an HTTP client for PHP built on top of Symfony2 components
+Buzy is an HTTP client for PHP built on top of Symfony2 components
 ====================================================================
 
 This is a work in progress project. The goal is to build an efficient and robust
@@ -18,7 +18,8 @@ Requirements
 
 * PHP 5.3 +
 * Symfony HttpFoundation
-* Symfony Event Dispatcher
+* Symfony EventDispatcher
+* Symfony BrowserKit (for CookieJar)
 * Curl Extension (not yet)
 
 Usage
