@@ -37,7 +37,7 @@ You can also use the low-level HTTP classes directly.
 
 ```php
 
-$request = new Symfony\Component\HttpFoundation\Request::create('http://google.com', 'GET');
+$request = Symfony\Component\HttpFoundation\Request::create('http://google.com', 'GET');
 $response = new Symfony\Component\HttpFoundation\Response();
 
 $client = new Buzy\Client\FileGetContents();
