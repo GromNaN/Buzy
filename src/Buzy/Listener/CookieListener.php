@@ -1,9 +1,8 @@
 <?php
 
-namespace Buzy\Cookie;
+namespace Buzy\Listener;
 
 use Buzy\BrowserEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\BrowserKit\CookieJar;
 
 /**
@@ -11,7 +10,7 @@ use Symfony\Component\BrowserKit\CookieJar;
  *
  * @author Jérôme Tamarelle <jerome@tamarelle.net>
  */
-class CookieListener implements EventSubscriberInterface
+class CookieListener extends AbstractListener
 {
     /**
      * @var Jar
@@ -64,16 +63,5 @@ class CookieListener implements EventSubscriberInterface
         $uri = $event->getRequest()->getUri();
 
         $this->jar->updateFromSetCookie(array($cookies), $uri);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    static public function getSubscribedEvents()
-    {
-        return array(
-            BrowserEvent::REQUEST  => 'onRequest',
-            BrowserEvent::RESPONSE => 'onResponse',
-        );
     }
 }

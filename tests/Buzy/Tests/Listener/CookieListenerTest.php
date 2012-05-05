@@ -1,8 +1,8 @@
 <?php
 
-namespace Buzy\Tests\Cookie;
+namespace Buzy\Tests\Listener;
 
-use Buzy\Cookie\CookieListener;
+use Buzy\Listener\CookieListener;
 use Buzy\BrowserEvent;
 use Symfony\Component\BrowserKit\CookieJar;
 use Symfony\Component\BrowserKit\Cookie;

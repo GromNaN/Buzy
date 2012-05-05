@@ -1,9 +1,8 @@
 <?php
 
-namespace Buzy\Cache;
+namespace Buzy\Listener;
 
 use Buzy\BrowserEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\Common\Cache\Cache;
 
 /**
@@ -11,7 +10,7 @@ use Doctrine\Common\Cache\Cache;
  *
  * @author Jérôme Tamarelle <jerome@tamarelle.net>
  */
-class CacheListener implements EventSubscriberInterface
+class CacheListener extends AbstractListener
 {
     /**
      * @var \Doctrine\Common\Cache\Cache
@@ -77,16 +76,5 @@ class CacheListener implements EventSubscriberInterface
     protected function generateRequestIdentifier(Request $request)
     {
         return sha1($request->headers->all());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    static public function getSubscribedEvents()
-    {
-        return array(
-            BrowserEvent::REQUEST  => 'onRequest',
-            BrowserEvent::RESPONSE => 'onResponse',
-        );
     }
 }
