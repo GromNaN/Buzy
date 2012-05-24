@@ -4,8 +4,10 @@ namespace Buzy\Tests\Listener;
 
 use Buzy\Listener\CallbackListener;
 use Buzy\BrowserEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class CookieListenerTest extends \PHPUnit_Framework_TestCase
+class CallbackListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testCallbacks()
     {

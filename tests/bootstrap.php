@@ -3,8 +3,8 @@
 /**
  * Use composer autoloader depending of the installation context.
  */
-if (file_exists($file = __DIR__.'/../../../.composer/autoload.php')
- || file_exists($file = __DIR__.'/../vendor/.composer/autoload.php')) {
+if (file_exists($file = __DIR__.'/../../../autoload.php')
+ || file_exists($file = __DIR__.'/../vendor/autoload.php')) {
     $loader = require $file;
     $loader->add('Buzy\\Tests', __DIR__);
 } else {
