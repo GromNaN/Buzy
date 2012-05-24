@@ -32,8 +32,8 @@ class CallbackListener extends AbstractListener
      */
     public function onRequest(BrowserEvent $event)
     {
-        if (isset($this->callbacks['before'])) {
-            call_user_func($this->callbacks['before'], $event, $this->params);
+        if (isset($this->callbacks['request'])) {
+            call_user_func($this->callbacks['request'], $event, $this->params);
         }
     }
 
@@ -42,8 +42,8 @@ class CallbackListener extends AbstractListener
      */
     public function onResponse(BrowserEvent $event)
     {
-        if (isset($this->callbacks['after'])) {
-            call_user_func($this->callbacks['after'], $event, $this->params);
+        if (isset($this->callbacks['response'])) {
+            call_user_func($this->callbacks['response'], $event, $this->params);
         }
     }
 }
