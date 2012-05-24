@@ -4,12 +4,13 @@ Buzy is an HTTP client for PHP built on top of Symfony2 components
 This is a work in progress project. The goal is to build an efficient and robust
 library on top of Symfony2 HttpFoundation (Request and Response).
 
+Unit tested with PHPUnit [![Build Status](https://secure.travis-ci.org/GromNaN/Buzy.png?branch=master)](http://travis-ci.org/GromNaN/Buzy)
+
 Todo:
 
 * HTTP cache listener to skip not necessary requests.
 * CURL client
 * Proxy support
-* Cookie Jar listener
 * History listener
 * Logger listener
 
